@@ -33,7 +33,7 @@ describe('WordleBoard', () => {
     expect(wrapper.text()).not.toContain(DEFEAT_MESSAGE)
   })
 
-  it("if a word of the day provided does not have exactly 5 characters, a warning is emitted", async () => {
+  it("should emit a warning if a provided word of the day does not have exactly 5 characters", async () => {
     console.warn = vi.fn()
 
     wrapper = mount(WordleBoard, { props: { wordOfTheDay: "FLY" } })
