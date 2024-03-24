@@ -40,4 +40,12 @@ describe('WordleBoard', () => {
 
     expect(console.warn).toHaveBeenCalled()
   })
+
+  it("should emit a warning if the wordOfTheDay is not all in uppercase", () => {
+    console.warn = vi.fn()
+
+    wrapper = mount(WordleBoard, { props: { wordOfTheDay: "FlIES" } })
+
+    expect(console.warn).toHaveBeenCalled()
+  })
 })
