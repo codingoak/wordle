@@ -4,7 +4,7 @@ import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from '../../settings'
 
 describe('WordleBoard', () => {
   let wordOfTheDay = "TEST"
-  
+
   it('should show a victory message when the user makes a guess that matches the word of the day', async () => {
     const wrapper = mount(WordleBoard, { props: { wordOfTheDay } })
 
@@ -25,5 +25,10 @@ describe('WordleBoard', () => {
     expect(wrapper.text()).toContain(DEFEAT_MESSAGE)
   })
 
-  it.todo("should not show an end-of-game message if the user has not made yet a guess")
+  it("should not show an end-of-game message if the user has not made yet a guess", async () => {
+    const wrapper = mount(WordleBoard, { props: { wordOfTheDay } })
+    
+    expect(wrapper.text()).not.toContain(VICTORY_MESSAGE)
+    expect(wrapper.text()).not.toContain(DEFEAT_MESSAGE)
+  })
 })
