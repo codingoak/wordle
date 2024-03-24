@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import WordleBoard from '../WordleBoard.vue'
-import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from '../../settings'
+import WordleBoard from '@/components/WordleBoard.vue'
+import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from '@/settings'
 
 describe('WordleBoard', () => {
   let wordOfTheDay = "TEST"
@@ -10,18 +10,20 @@ describe('WordleBoard', () => {
     wrapper = mount(WordleBoard, { props: { wordOfTheDay } })
   })
 
-  it('should show a victory message when the user makes a guess that matches the word of the day', async () => {
+  async function playerSubmitsGuess(guess: string) {
     const guessInput = wrapper.find("input[type=text]")
-    await guessInput.setValue(wordOfTheDay)
+    await guessInput.setValue(guess)
     await guessInput.trigger("keydown.enter")
+  }
+
+  it('should show a victory message when the user makes a guess that matches the word of the day', async () => {
+    await playerSubmitsGuess(wordOfTheDay)
 
     expect(wrapper.text()).toContain(VICTORY_MESSAGE)
   })
 
   it("should show a defeat message if the user makes a guess that is incorrect", async () => {
-    const guessInput = wrapper.find("input[type=text]")
-    await guessInput.setValue("WRONG")
-    await guessInput.trigger("keydown.enter")
+    await playerSubmitsGuess("WRONG")
 
     expect(wrapper.text()).toContain(DEFEAT_MESSAGE)
   })
